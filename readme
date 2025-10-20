@@ -2,8 +2,7 @@ Assignment 3 readme File
 
 ------------------------------------------------------------------------
 What is your name?
-
-
+Ryan Donoghue
 
 ------------------------------------------------------------------------
 What authorized sources of information did you use to complete the
@@ -12,7 +11,9 @@ in the "Policies" web page (also available on armlab in the file
 ~cos217/AuthorizedSourcesList ) to this section of the readme file,
 and edit it as appropriate.
 
-
+Course lecture
+Office hours
+Course website
 
 ------------------------------------------------------------------------
 What unauthorized sources of information did you use to complete the
@@ -26,7 +27,7 @@ interaction, may additionally require the interaction being reported
 to the Committee on Discipline. Write "None" if you used no
 unauthorized sources of information.
 
-
+None
 
 ------------------------------------------------------------------------
 In fulfillment of the requirement from section 2.4.3 of the Academic
@@ -36,7 +37,7 @@ enter your name in the space below the following affirmation:
 This paper represents my own work in accordance with University
 regulations.
 
-
+Ryan Donoghue
 
 ------------------------------------------------------------------------
 In fulfillment of the requirement from section 2.4.6 of the Academic
@@ -44,12 +45,15 @@ Regulations in Princeton's Rights, Rules, Responsibilities guide,
 and the COS 217 Generative AI policy, disclose and describe how you
 used AI in completing this assignment:
 
-
+I used Claude to create a week long schedule so that I could get all
+of the assignment done before the quiz.
 
 ------------------------------------------------------------------------
 What is your assessment of the assignment? Was it helpful? Was it fun?
 
-
+It was fun. I felt a little rusty with symbol tables, linked lists 
+and hash tables at first, but after working through the implementations 
+I feel much more comfortable with them.
 
 ------------------------------------------------------------------------
 (optional) What information can you provide about your submission that
@@ -64,7 +68,7 @@ disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
 
-
+None.
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablelist.c, and what are your
@@ -72,7 +76,7 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-
+None.
 
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablehash.c, and what are your
@@ -80,7 +84,7 @@ disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
 
-
+None.
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablehash.c, and what are your
@@ -88,7 +92,7 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-
+None.
 
 ------------------------------------------------------------------------
 What are the CPU times reported by testsymtable.c with binding counts
