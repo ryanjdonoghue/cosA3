@@ -200,8 +200,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
             if (psCurrentNode == oSymTable->psFirstNode) 
             {
                 pvRemovedValue = oSymTable->psFirstNode->pvValue; 
-                psCurrentNode->psNextNode = oSymTable->psFirstNode->psNextNode; 
-                /* free(oSymTable->psFirstNode->pcKey); */
+                free(oSymTable->psFirstNode->pcKey);
                 /* free(oSymTable->psFirstNode); */
                 oSymTable->psFirstNode = psCurrentNode->psNextNode;
                 oSymTable->uLength--; 
