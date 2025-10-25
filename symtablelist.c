@@ -105,7 +105,7 @@ if (psNewNode->pcKey == NULL)
 }
 strcpy(psNewNode->pcKey, pcKey); 
 
-
+psNewNode->pvValue = pvValue; 
 psNewNode->psNextNode = oSymTable->psFirstNode; 
 oSymTable->psFirstNode = psNewNode; 
 oSymTable->uLength++; 
