@@ -14,8 +14,11 @@
 to form a list. */
 struct SymTableNode 
 {
+    /* The Key of the binding. */
     char *pcKey;
+    /* The value of the binding. */
     const void *pvValue;
+    /* The address of the next SymTableNode. */
     struct SymTableNode *psNextNode;
     
 }; 
@@ -24,10 +27,11 @@ struct SymTableNode
 
 /* A SymTable is a "dummy" node that points to the first 
 SymTableNode. */
-
 struct SymTable 
 {
+    /* The address of the first SymTableNode. */
     struct SymTableNode *psFirstNode;
+    /* The length of the Symbol Table — its number of bindings. */
     size_t uLength;
 }; 
 
@@ -81,6 +85,7 @@ struct SymTableNode *psCurrentNode;
 
 assert(oSymTable != NULL); 
 assert(pcKey != NULL);
+assert(pvValue != NULL); 
 
 for (psCurrentNode = oSymTable->psFirstNode;
      psCurrentNode != NULL; 
@@ -123,6 +128,8 @@ void *SymTable_replace(SymTable_T oSymTable,
     const void *pvValueOld; 
 
     assert(oSymTable != NULL); 
+    assert(pcKey != NULL);
+    assert(pvValue != NULL); 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL;
@@ -145,7 +152,8 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
 {
     struct SymTableNode *psCurrentNode;
 
-    assert(oSymTable != NULL); 
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL) ; 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL;
@@ -167,6 +175,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
     const void *pvTargetValue; 
     
     assert(oSymTable != NULL); 
+    assert(pcKey != NULL); 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL;
@@ -189,7 +198,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
     struct SymTableNode *psPreviousNode = NULL; 
     const void *pvRemovedValue; 
 
-    assert(oSymTable != NULL); 
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL); 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL; 
@@ -206,6 +216,9 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
                 oSymTable->uLength--; 
                 return (void*)pvRemovedValue; 
             }
+            /* Needed to avoid possibly null pointer dereference
+             warning. psPreviousNode would already be established
+             in the case where the else-if takes place. */
             else if (psPreviousNode != NULL)
             {
                 pvRemovedValue = psCurrentNode->pvValue; 
@@ -231,6 +244,7 @@ void SymTable_map(SymTable_T oSymTable,
         
         assert(oSymTable != NULL);
         assert(pfApply != NULL); 
+
         
      for (psCurrentNode = oSymTable->psFirstNode;
           psCurrentNode != NULL; 

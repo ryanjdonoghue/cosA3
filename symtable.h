@@ -27,7 +27,7 @@ void SymTable_free(SymTable_T oSymTable);
 
 /*--------------------------------------------------------------------*/
 
-/* Get the length of oSymTable. */
+/* Return the length of oSymTable. */
 size_t SymTable_getLength(SymTable_T oSymTable);
 
 /*--------------------------------------------------------------------*/
@@ -71,8 +71,10 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey);
 
 /*--------------------------------------------------------------------*/
 
-/*  */
-
+/* Apply function *pfApply to each binding in 
+oSymTable, passing pvExtra as an extra parameter. That is, call 
+(*pfApply)(pcKey, pvValue, pvExtra) for each 
+pcKey/pvValue binding in oSymTable. */
 void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
     const void *pvExtra);
