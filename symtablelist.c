@@ -59,10 +59,10 @@ void SymTable_free(SymTable_T oSymTable) {
         psCurrentNode = psNextNode)
     {
         psNextNode = psCurrentNode->psNextNode;
-        free(psNextNode->pcKey); 
-        free(psCurrentNode); 
+        /* free(psNextNode->pcKey); */
+        /* free(psCurrentNode); */
     }
-    free(oSymTable); 
+    /* free(oSymTable); */
 }
 
 /*--------------------------------------------------------------------*/
@@ -100,7 +100,7 @@ if (psNewNode == NULL)
 psNewNode->pcKey = (char*)malloc(strlen(pcKey) + 1); 
 if (psNewNode->pcKey == NULL)
 {
-    free(psNewNode);
+    /* free(psNewNode); */
     return 0; 
 }
 strcpy(psNewNode->pcKey, pcKey); 
@@ -201,8 +201,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
             {
                 pvRemovedValue = oSymTable->psFirstNode->pvValue; 
                 psCurrentNode->psNextNode = oSymTable->psFirstNode->psNextNode; 
-                free(oSymTable->psFirstNode->pcKey); 
-                free(oSymTable->psFirstNode);
+                /* free(oSymTable->psFirstNode->pcKey); */
+                /* free(oSymTable->psFirstNode); */
                 oSymTable->psFirstNode = psCurrentNode->psNextNode;
                 oSymTable->uLength--; 
                 return (void*)pvRemovedValue; 
@@ -211,8 +211,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
             {
                 pvRemovedValue = psCurrentNode->pvValue; 
                 psPreviousNode->psNextNode = psCurrentNode->psNextNode; 
-                free(psCurrentNode->pcKey); 
-                free(psCurrentNode); 
+                /* free(psCurrentNode->pcKey); */
+                /* free(psCurrentNode); */
                 oSymTable->uLength--; 
                 return (void*)pvRemovedValue;
             }
