@@ -97,18 +97,18 @@ void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
 {
     struct SymTableNode *psCurrentNode;
-    struct SymTableNode *psNextNode;
+    
     const void *pvValueOld; 
 
     assert(oSymTable != NULL); 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL;
-        psCurrentNode = psNextNode)
+        psCurrentNode = psCurrentNode->psNextNode)
     {
         if (psCurrentNode->pcKey == pcKey) {
             pvValueOld = psCurrentNode->pvValue;
-            pvValue = psCurrentNode->pvValue;
+            psCurrentNode->pvValue = pvValue;
             return (void*)pvValueOld; 
         }
     }
@@ -121,13 +121,12 @@ void *SymTable_replace(SymTable_T oSymTable,
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) 
 {
     struct SymTableNode *psCurrentNode;
-    struct SymTableNode *psNextNode;
 
     assert(oSymTable != NULL); 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL;
-        psCurrentNode = psNextNode)
+        psCurrentNode = psCurrentNode->psNextNode)
     {
         if (psCurrentNode->pcKey == pcKey) {
             return 1;
@@ -162,35 +161,35 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) 
 {
     struct SymTableNode *psCurrentNode;
-    struct SymTableNode *psNextNode;
-    struct SymTableNode *psLastNode = NULL; 
+    struct SymTableNode *psPreviousNode = NULL; 
     const void *pvRemovedValue; 
 
     assert(oSymTable != NULL); 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL; 
-        psCurrentNode = psNextNode)
+        psCurrentNode = psCurrentNode->psNextNode)
     {
         if (psCurrentNode->pcKey == pcKey) {
             if (psCurrentNode == oSymTable->psFirstNode) 
             {
                 pvRemovedValue = oSymTable->psFirstNode->pvValue; 
-                psNextNode = oSymTable->psFirstNode->psNextNode; 
+                psCurrentNode->psNextNode = oSymTable->psFirstNode->psNextNode; 
                 free(oSymTable->psFirstNode);
-                oSymTable->psFirstNode = psNextNode; 
+                oSymTable->psFirstNode = psCurrentNode->psNextNode; 
                 return (void*)pvRemovedValue; 
             }
             else
             {
                 pvRemovedValue = psCurrentNode->pvValue; 
-                psLastNode->psNextNode = psNextNode; 
+                psPreviousNode->psNextNode = psCurrentNode->psNextNode; 
                 free(psCurrentNode); 
                 return (void*)pvRemovedValue;
             }
         }
-        psLastNode = psCurrentNode; 
+        psPreviousNode = psCurrentNode; 
     }
+    return NULL; 
 }
 
 /*--------------------------------------------------------------------*/
