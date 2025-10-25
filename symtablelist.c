@@ -186,7 +186,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) 
 {
     struct SymTableNode *psCurrentNode;
-    struct SymTableNode *psPreviousNode = NULL; 
+    struct SymTableNode *psPreviousNode; 
     const void *pvRemovedValue; 
 
     assert(oSymTable != NULL); 
