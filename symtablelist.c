@@ -83,7 +83,7 @@ if (psNewNode != NULL)
     return 0;
 }
 
-psNewNode->pcKey = pcKey;
+psNewNode->pcKey =(void*)pcKey;
 psNewNode->pvValue = pvValue; 
 psNewNode->psNextNode = oSymTable->psFirstNode; 
 oSymTable->psFirstNode = psNewNode; 
