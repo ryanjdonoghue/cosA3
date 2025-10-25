@@ -85,7 +85,6 @@ struct SymTableNode *psCurrentNode;
 
 assert(oSymTable != NULL); 
 assert(pcKey != NULL);
-assert(pvValue != NULL); 
 
 for (psCurrentNode = oSymTable->psFirstNode;
      psCurrentNode != NULL; 
