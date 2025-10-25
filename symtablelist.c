@@ -109,7 +109,7 @@ void *SymTable_replace(SymTable_T oSymTable,
         if (psCurrentNode->pcKey == pcKey) {
             pvValueOld = psCurrentNode->pvValue;
             pvValue = psCurrentNode->pvValue;
-            return pvValueOld; 
+            return (void*)pvValueOld; 
         }
     }
     return NULL; 
@@ -141,16 +141,17 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
 {
     struct SymTableNode *psCurrentNode;
-    struct SymTableNode *psNextNode;
-
+    const void *pvTargetValue; 
+    
     assert(oSymTable != NULL); 
 
     for (psCurrentNode = oSymTable->psFirstNode;
         psCurrentNode != NULL;
-        psCurrentNode = psNextNode)
+        psCurrentNode = psCurrentNode->psNextNode)
     {
         if (psCurrentNode->pcKey == pcKey) {
-            return psCurrentNode->pvValue;
+            pvTargetValue = psCurrentNode->pvValue;
+            return (void*)pvTargetValue; 
         }
     }
     return NULL; 
@@ -163,7 +164,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
     struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNextNode;
     struct SymTableNode *psLastNode = NULL; 
-    const void *pvValue; 
+    const void *pvRemovedValue; 
 
     assert(oSymTable != NULL); 
 
@@ -174,18 +175,18 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
         if (psCurrentNode->pcKey == pcKey) {
             if (psCurrentNode == oSymTable->psFirstNode) 
             {
-                pvValue = oSymTable->psFirstNode->pvValue; 
+                pvRemovedValue = oSymTable->psFirstNode->pvValue; 
                 psNextNode = oSymTable->psFirstNode->psNextNode; 
                 free(oSymTable->psFirstNode);
                 oSymTable->psFirstNode = psNextNode; 
-                return pvValue; 
+                return (void*)pvRemovedValue; 
             }
             else
             {
-                pvValue = psCurrentNode->pvValue; 
+                pvRemovedValue = psCurrentNode->pvValue; 
                 psLastNode->psNextNode = psNextNode; 
                 free(psCurrentNode); 
-                return pvValue;
+                return (void*)pvRemovedValue;
             }
         }
         psLastNode = psCurrentNode; 
