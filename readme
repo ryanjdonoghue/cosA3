@@ -76,7 +76,19 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-None.
+symtablelist.c: line 82: medium priority:
+Do you want to validate 'pvValue' through an assert?
+
+symtablelist.c: line 124: medium priority:
+Do you want to validate 'pvValue' through an assert?
+
+symtablelist.c: line 241: medium priority:
+Do you want to validate 'pvExtra' through an assert?
+
+I have the same disagreement with the two warnings regarding pvValue 
+and the one warning regarding pvExtra. I cannot use assert on pvExtra
+or PvValue because they are allowed to be NULL. Adding asserts causes
+testsymtable.c to crash when it shouldn't
 
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablehash.c, and what are your
