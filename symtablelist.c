@@ -100,7 +100,7 @@ if (psNewNode == NULL)
 psNewNode->pcKey = (char*)malloc(strlen(pcKey) + 1); 
 if (psNewNode->pcKey == NULL)
 {
-    free(psNewNode);
+    /*free(psNewNode);*/
     return 0; 
 }
 strcpy(psNewNode->pcKey, pcKey); 
