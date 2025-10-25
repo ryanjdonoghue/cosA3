@@ -4,6 +4,7 @@
 /*--------------------------------------------------------------------*/
 #ifndef SYMTABLE_H
 #define SYMTABLE_H
+#include <stddef.h> 
 
 /* A SymTable_T is an unordered collection of bindings. A binding 
 consists of a key and a value. A key is a string that uniquely 
