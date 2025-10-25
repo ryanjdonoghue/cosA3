@@ -70,9 +70,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey);
 
 /*--------------------------------------------------------------------*/
 
-/* Apply function *pfApply to each element of oSymTable, passing 
-pvExtra as an extra argument. That is, for each element pvItem of
-oSymTable, call (*pfApply)(pvItem, pvExtra). */
+/*  */
 
 void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),

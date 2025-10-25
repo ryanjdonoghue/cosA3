@@ -2,8 +2,6 @@
 /* symtablelist.c                                                     */
 /* Author: Ryan Donoghue                                              */
 /*--------------------------------------------------------------------*/
-
-#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include "symtable.h"
@@ -64,9 +62,13 @@ void SymTable_free(SymTable_T oSymTable) {
     free(oSymTable); 
 }
 
+/*--------------------------------------------------------------------*/
+
 size_t SymTable_getLength(SymTable_T oSymTable) {
     return oSymTable->uLength; 
 }
+
+/*--------------------------------------------------------------------*/
 
 int SymTable_put(SymTable_T oSymTable, 
     const char *pcKey, const void *pvValue) 
@@ -89,6 +91,7 @@ return 1;
 
 }
 
+/*--------------------------------------------------------------------*/
 
 void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
@@ -113,6 +116,8 @@ void *SymTable_replace(SymTable_T oSymTable,
 
 }
 
+/*--------------------------------------------------------------------*/
+
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) 
 {
     struct SymTableNode *psCurrentNode;
@@ -131,6 +136,8 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
     return 0; 
 }
 
+/*--------------------------------------------------------------------*/
+
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
 {
     struct SymTableNode *psCurrentNode;
@@ -148,6 +155,8 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
     }
     return NULL; 
 }
+
+/*--------------------------------------------------------------------*/
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) 
 {
@@ -181,4 +190,24 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
         }
         psLastNode = psCurrentNode; 
     }
+}
+
+/*--------------------------------------------------------------------*/
+
+void SymTable_map(SymTable_T oSymTable,
+    void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
+    const void *pvExtra) 
+{
+        struct SymTableNode *psCurrentNode; 
+        
+        assert(oSymTable != NULL);
+        assert(pfApply != NULL); 
+        
+     for (psCurrentNode = oSymTable->psFirstNode;
+          psCurrentNode != NULL; 
+          psCurrentNode = psCurrentNode->psNextNode)  
+    { 
+        (*pfApply) ((void*)psCurrentNode->pcKey, 
+        (void*)psCurrentNode->pvValue, ((void*)pvExtra)); 
+    } 
 }
