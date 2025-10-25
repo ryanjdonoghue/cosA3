@@ -59,10 +59,10 @@ void SymTable_free(SymTable_T oSymTable) {
         psCurrentNode = psNextNode)
     {
         psNextNode = psCurrentNode->psNextNode;
-        free(psNextNode->pcKey);
-        free(psCurrentNode); 
+        /*free(psNextNode->pcKey);*/
+        /*free(psCurrentNode);*/
     }
-    free(oSymTable);
+    /*free(oSymTable);*/
 }
 
 /*--------------------------------------------------------------------*/
