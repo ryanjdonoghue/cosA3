@@ -210,8 +210,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
             {
                 pvRemovedValue = psCurrentNode->pvValue; 
                 psPreviousNode->psNextNode = psCurrentNode->psNextNode; 
-                /* free(psCurrentNode->pcKey); */
-                /* free(psCurrentNode); */
+                free(psCurrentNode->pcKey);
+                free(psCurrentNode);
                 oSymTable->uLength--; 
                 return (void*)pvRemovedValue;
             }
