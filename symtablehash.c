@@ -89,9 +89,15 @@ void SymTable_free(SymTable_T oSymTable)
 
     assert(oSymTable != NULL); 
 
-    for (i = oSymTable->uBucketCount; oSymTable->uLength != 0; 
-    i++)
+    for (i = 0; i < oSymTable->uBucketCount; i++)
     {
+        /* There is no need to continue traversing arrays if there are
+        no more bindings. */
+        if (oSymTable->uLength == 0)
+        {
+            break; 
+        }
+
         if (oSymTable->ppsBuckets[i] != NULL) 
         {
             for (psCurrentNode = oSymTable->ppsBuckets[i];
@@ -106,6 +112,7 @@ void SymTable_free(SymTable_T oSymTable)
         }
         
     }
+    free(oSymTable->ppsBuckets); 
     free(oSymTable);
 }
 
@@ -269,7 +276,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
                 pvRemovedValue = psFirstNode->pvValue; 
                 free(psCurrentNode->pcKey);
                 free(psFirstNode);
-                psFirstNode = psCurrentNode->psNextNode;
+                oSymTable->ppsBuckets[hash_code] = 
+                psCurrentNode->psNextNode;
                 oSymTable->uLength--; 
                 return (void*)pvRemovedValue; 
             }
@@ -279,7 +287,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
             else if (psPreviousNode != NULL)
             {
                 pvRemovedValue = psCurrentNode->pvValue; 
-                psPreviousNode->psNextNode = psCurrentNode->psNextNode; 
+                psPreviousNode->psNextNode = 
+                psCurrentNode->psNextNode; 
                 free(psCurrentNode->pcKey);
                 free(psCurrentNode);
                 oSymTable->uLength--; 
@@ -305,9 +314,14 @@ void SymTable_map(SymTable_T oSymTable,
         assert(pfApply != NULL);
 
     
-     for (i = oSymTable->uBucketCount; extraApplied < oSymTable->uLength; 
-    i++)
+     for (i = 0; i < oSymTable->uBucketCount; i++)
     {
+        /* There is no need to continue traversing arrays if 
+        all of the bindings have been modified. */
+        if (oSymTable->uLength == extraApplied)
+        {
+            break; 
+        }
         if (oSymTable->ppsBuckets[i] != NULL) 
         {
             for (psCurrentNode = oSymTable->ppsBuckets[i];
