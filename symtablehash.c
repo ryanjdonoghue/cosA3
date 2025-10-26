@@ -70,7 +70,6 @@ static int SymTable_expand(SymTable_T oSymTable)
     struct SymTableHashNode **ppsNewBuckets;
     struct SymTableHashNode *psCurrentNode;
     struct SymTableHashNode *psNextNode;
-    size_t maxBindings; 
     size_t uNewBucketCount;
     size_t uNewHash;
     size_t i;
