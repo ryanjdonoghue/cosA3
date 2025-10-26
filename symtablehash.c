@@ -103,7 +103,8 @@ static int SymTable_expand(SymTable_T oSymTable)
             psNextNode = psCurrentNode->psNextNode;
 
             /* Rehash with new bucket count */
-            uNewHash = SymTable_hash(psCurrentNode->pcKey, uNewBucketCount);
+            uNewHash = SymTable_hash(psCurrentNode->pcKey, 
+                uNewBucketCount);
 
             /* Add to front of new bucket */
             psCurrentNode->psNextNode = ppsNewBuckets[uNewHash];
@@ -160,8 +161,8 @@ void SymTable_free(SymTable_T oSymTable)
 
     for (i = 0; i < oSymTable->uBucketCount; i++)
     {
-        /* There is no need to continue traversing arrays if there are
-        no more bindings. */
+        /* There is no need to continue traversing arrays if there 
+        are no more bindings. */
         if (oSymTable->uLength == 0)
         {
             break; 
@@ -221,7 +222,8 @@ for (psCurrentNode = oSymTable->ppsBuckets[hash_code];
     }
 }
 
-psNewNode = (struct SymTableHashNode*)malloc(sizeof(struct SymTableHashNode)); 
+psNewNode = (struct SymTableHashNode*)malloc(sizeof(struct 
+    SymTableHashNode)); 
 if (psNewNode == NULL) 
 {
     return 0;
