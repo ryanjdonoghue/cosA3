@@ -8,7 +8,11 @@
 #include <string.h>
 #include "symtable.h"
 
+/* Preset bucket count. */
 enum {BUCKET_COUNT = 509};
+
+/* Each binding is stored in a SymTableHashNode. SymTableNodes are 
+linked to form a list. */
 struct SymTableHashNode 
 {
     /* The key of the binding. */
@@ -313,6 +317,7 @@ void SymTable_map(SymTable_T oSymTable,
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
 
+        extraApplied = 0; 
     
      for (i = 0; i < oSymTable->uBucketCount; i++)
     {
