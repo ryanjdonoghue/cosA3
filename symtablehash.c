@@ -89,7 +89,7 @@ void SymTable_free(SymTable_T oSymTable)
 
     assert(oSymTable != NULL); 
 
-    for (size_t i = oSymTable->uBucketCount; oSymTable->uLength != 0; 
+    for (i = oSymTable->uBucketCount; oSymTable->uLength != 0; 
     i++)
     {
         if (oSymTable->ppsBuckets[i] != NULL) 
@@ -140,7 +140,7 @@ for (psCurrentNode = oSymTable->ppsBuckets[hash_code];
     }
 }
 
-psNewNode = (struct SymTableNode*)malloc(sizeof(struct SymTableHashNode)); 
+psNewNode = (struct SymTableHashNode*)malloc(sizeof(struct SymTableHashNode)); 
 if (psNewNode == NULL) 
 {
     return 0;
@@ -305,7 +305,7 @@ void SymTable_map(SymTable_T oSymTable,
         assert(pfApply != NULL);
 
     
-     for (size_t i = oSymTable->uBucketCount; extraApplied < oSymTable->uLength; 
+     for (i = oSymTable->uBucketCount; extraApplied < oSymTable->uLength; 
     i++)
     {
         if (oSymTable->ppsBuckets[i] != NULL) 
