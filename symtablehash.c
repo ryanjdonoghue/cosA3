@@ -161,13 +161,6 @@ void SymTable_free(SymTable_T oSymTable)
 
     for (i = 0; i < oSymTable->uBucketCount; i++)
     {
-        /* There is no need to continue traversing arrays if there 
-        are no more bindings. */
-        if (oSymTable->uLength == 0)
-        {
-            break; 
-        }
-
         if (oSymTable->ppsBuckets[i] != NULL) 
         {
             for (psCurrentNode = oSymTable->ppsBuckets[i];
@@ -204,12 +197,12 @@ size_t hash_code;
 
 assert(oSymTable != NULL); 
 assert(pcKey != NULL);
-
+/*
 if(oSymTable->uLength >= oSymTable->uBucketCount)
 {
     SymTable_expand(oSymTable); 
 }
-
+*/
 hash_code = SymTable_hash(pcKey, oSymTable->uBucketCount);
 
 for (psCurrentNode = oSymTable->ppsBuckets[hash_code];
