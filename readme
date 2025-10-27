@@ -8,7 +8,7 @@ Ryan Donoghue
 What authorized sources of information did you use to complete the
 assignment? COPY THE LIST of authorized sources of information given
 in the "Policies" web page (also available on armlab in the file
-~cos217/AuthorizedSourcesList ) to this section of the readme file,
+~cos217/AuthorizedSourcesList) to this section of the readme file,
 and edit it as appropriate.
 
 Course lecture
@@ -104,13 +104,17 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-symtablelist.c: line 82: medium priority:
+symtablehash.c: line 69: high priority: 
+A function's comment should refer to each parameter by name;
+your comment does not refer to 'oSymTable'
+
+symtablehash.c: line 196: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
-symtablelist.c: line 124: medium priority:
+symtablehash.c: line 249: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
-symtablelist.c: line 241: medium priority:
+symtablehash.c: line 380: medium priority:
 Do you want to validate 'pvExtra' through an assert?
 
 I have the same disagreement with the two warnings regarding pvValue 
@@ -129,7 +133,7 @@ The linked list implementation with:
 -- 500 bindings consumed 0.000000 seconds.
 -- 5000 bindings consumed 0.117894 seconds.
 -- 50000 bindings consumed 19.868609 seconds.
--- 500000 bindings consumed ________ seconds.
+-- 500000 bindings -> Killed, not completed.
 
 The non-expanding hash table implementation with:
 -- 50 bindings consumed 0.000000 seconds.
@@ -139,8 +143,8 @@ The non-expanding hash table implementation with:
 -- 500000 bindings consumed 49.613072 seconds.
 
 The expanding hash table implementation with:
--- 50 bindings consumed ________ seconds.
--- 500 bindings consumed ________ seconds.
--- 5000 bindings consumed ________ seconds.
--- 50000 bindings consumed ________ seconds.
--- 500000 bindings consumed ________ seconds.
+-- 50 bindings consumed 0.000000 seconds.
+-- 500 bindings consumed 0.000000 seconds.
+-- 5000 bindings consumed 0.000000 seconds.
+-- 50000 bindings consumed 0.143318 seconds.
+-- 500000 bindings consumed 26.476880 seconds.

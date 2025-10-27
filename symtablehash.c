@@ -49,7 +49,6 @@ struct SymTable
 
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1,
 inclusive. */
-
 static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 {
    const size_t HASH_MULTIPLIER = 65599;
@@ -66,7 +65,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 
 /*--------------------------------------------------------------------*/
 
-/* Expand the hash table to the next bucket count. Return 1 on success,
+/* Expand oSymtable to the next bucket count. Return 1 on success,
     0 on faliure (not enough memory). */
 static int SymTable_expand(SymTable_T oSymTable) 
 {
