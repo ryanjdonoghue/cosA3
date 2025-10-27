@@ -65,7 +65,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 
 /*--------------------------------------------------------------------*/
 
-/* Expand oSymtable to the next bucket count. Return 1 on success,
+/* Expand oSymTable to the next bucket count. Return 1 on success,
     0 on faliure (not enough memory). */
 static int SymTable_expand(SymTable_T oSymTable) 
 {
