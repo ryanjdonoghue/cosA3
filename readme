@@ -76,13 +76,13 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-symtablelist.c: line 82: medium priority:
+symtablelist.c: line 71: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
-symtablelist.c: line 124: medium priority:
+symtablelist.c: line 112: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
-symtablelist.c: line 241: medium priority:
+symtablelist.c: line 223: medium priority:
 Do you want to validate 'pvExtra' through an assert?
 
 I have the same disagreement with the two warnings regarding pvValue 
@@ -104,13 +104,13 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-symtablehash.c: line 196: medium priority:
+symtablehash.c: line 175: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
-symtablehash.c: line 249: medium priority:
+symtablehash.c: line 228: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
-symtablehash.c: line 380: medium priority:
+symtablehash.c: line 349: medium priority:
 Do you want to validate 'pvExtra' through an assert?
 
 I have the same disagreement with the two warnings regarding pvValue 
