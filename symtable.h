@@ -16,7 +16,6 @@ typedef struct SymTable *SymTable_T;
 
 /* Return a new SymTable_T object, or NULL if insuficient memory is
 available. */
-
 SymTable_T SymTable_new(void);
 
 /*--------------------------------------------------------------------*/
@@ -33,7 +32,6 @@ size_t SymTable_getLength(SymTable_T oSymTable);
 
 /* Put binding of pcKey and pvValue into oSymTable. Return 1 (True) if
 successful, or 0 (FALSE) if insufficient memory is available. */
-
 int SymTable_put(SymTable_T oSymTable, 
     const char *pcKey, const void *pvValue); 
 
@@ -49,7 +47,6 @@ void *SymTable_replace(SymTable_T oSymTable,
 
 /* Return 1 (TRUE) if oSymTable contains pcKey, or 0 (FALSE) 
 otherwise. */
-
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey); 
 
 /*--------------------------------------------------------------------*/
@@ -57,14 +54,12 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey);
 
 /* Return the value of the binding within oSymTable whose key is 
 pcKey, or NULL if no such binding exists. */
-
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey);
 
 /*--------------------------------------------------------------------*/
 
 /* If oSymTable contains a binding with key pcKey, remove that binding 
 from oSymTable and return the binding's value. Otherwise return NULL. */
-
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey); 
 
 /*--------------------------------------------------------------------*/
