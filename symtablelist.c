@@ -24,9 +24,10 @@ struct SymTableNode
 SymTableNode. */
 struct SymTable 
 {
-    /* The address of the first SymTableNode. */
+    /* The address of the first SymTableNode — first of the 
+    linked list. */
     struct SymTableNode *psFirstNode;
-    /* The length of the Symbol Table — its number of bindings. */
+    /* Number of bindings in the the Symbol Table. */
     size_t uLength;
 }; 
 
@@ -173,7 +174,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) 
 {
-     struct SymTableNode *psCurrentNode;
+    struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNodeToRemove;
     struct SymTableNode *psFirst;
     const void *pvRemovedValue; 
@@ -181,8 +182,6 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
     assert(oSymTable != NULL);
     assert(pcKey != NULL); 
 
-    /* Used a lot in first case, so I simplified the variable 
-    name. */
     psFirst = oSymTable->psFirstNode;
     
     /* Handle if the binding to be removed is first in the 
