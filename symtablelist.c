@@ -8,8 +8,6 @@
 #include <string.h>
 #include "symtable.h"
 
-/*--------------------------------------------------------------------*/
-
 /* Each binding is stored in a SymTableNode. SymTableNodes are linked
 to form a list. */
 struct SymTableNode 
@@ -23,8 +21,6 @@ struct SymTableNode
     
 }; 
 
-/*--------------------------------------------------------------------*/
-
 /* A SymTable is a "dummy" node that points to the first 
 SymTableNode. */
 struct SymTable 
@@ -34,8 +30,6 @@ struct SymTable
     /* The length of the Symbol Table — its number of bindings. */
     size_t uLength;
 }; 
-
-/*--------------------------------------------------------------------*/
 
 SymTable_T SymTable_new(void)
 {
@@ -49,8 +43,6 @@ SymTable_T SymTable_new(void)
     oSymTable->uLength = 0;
     return oSymTable;
 }
-
-/*--------------------------------------------------------------------*/
 
 void SymTable_free(SymTable_T oSymTable) 
 {
@@ -70,13 +62,9 @@ void SymTable_free(SymTable_T oSymTable)
     free(oSymTable);
 }
 
-/*--------------------------------------------------------------------*/
-
 size_t SymTable_getLength(SymTable_T oSymTable) {
     return oSymTable->uLength; 
 }
-
-/*--------------------------------------------------------------------*/
 
 int SymTable_put(SymTable_T oSymTable, 
     const char *pcKey, const void *pvValue) 
@@ -118,8 +106,6 @@ return 1;
 
 }
 
-/*--------------------------------------------------------------------*/
-
 void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
 {
@@ -146,8 +132,6 @@ void *SymTable_replace(SymTable_T oSymTable,
 
 }
 
-/*--------------------------------------------------------------------*/
-
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) 
 {
     struct SymTableNode *psCurrentNode;
@@ -166,8 +150,6 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
     }
     return 0; 
 }
-
-/*--------------------------------------------------------------------*/
 
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
 {
@@ -189,8 +171,6 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
     }
     return NULL; 
 }
-
-/*--------------------------------------------------------------------*/
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) 
 {
@@ -233,8 +213,6 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
     }
     return NULL; 
 }
-
-/*--------------------------------------------------------------------*/
 
 void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),

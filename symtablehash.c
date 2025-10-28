@@ -29,8 +29,6 @@ struct SymTableNode
     struct SymTableNode *psNextNode;
 };
 
-/*--------------------------------------------------------------------*/
-
 /* A SymTable in the Hash Table implementation is an array of 
 BUCKET_COUNT linked lists (Buckets) where bindings are stored in
 nodes depending on their hash code. */
@@ -45,8 +43,6 @@ struct SymTable
     /* Number of bindings in the symbol table. */
     size_t uLength; 
 };
-
-/*--------------------------------------------------------------------*/
 
 /* Return a hash code for pcKey that is between 0 and uBucketCount-1,
 inclusive. */
@@ -63,8 +59,6 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 
    return uHash % uBucketCount;
 }
-
-/*--------------------------------------------------------------------*/
 
 /* Expand oSymTable to the next bucket count. Return 1 on success,
     0 on faliure (not enough memory). */
@@ -125,8 +119,6 @@ static int SymTable_expand(SymTable_T oSymTable)
     return 1;  /* Success */
 }
 
-/*--------------------------------------------------------------------*/
-
 SymTable_T SymTable_new(void) 
 {
     SymTable_T oSymTable;
@@ -151,8 +143,6 @@ SymTable_T SymTable_new(void)
 
     return oSymTable; 
 }
-
-/*--------------------------------------------------------------------*/
 
 void SymTable_free(SymTable_T oSymTable) 
 {
@@ -182,14 +172,10 @@ void SymTable_free(SymTable_T oSymTable)
     free(oSymTable);
 }
 
-/*--------------------------------------------------------------------*/
-
 size_t SymTable_getLength(SymTable_T oSymTable) 
 {
     return oSymTable->uLength; 
 }
-
-/*--------------------------------------------------------------------*/
 
 int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
@@ -242,8 +228,6 @@ return 1;
 
 }
 
-/*--------------------------------------------------------------------*/
-
 void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
 {
@@ -271,8 +255,6 @@ void *SymTable_replace(SymTable_T oSymTable,
     return NULL; 
 }
 
-/*--------------------------------------------------------------------*/
-
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) 
 {
     struct SymTableNode *psCurrentNode;
@@ -294,8 +276,6 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey)
     }
     return 0; 
 }
-
-/*--------------------------------------------------------------------*/
 
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) 
 {
@@ -321,12 +301,10 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
     return NULL; 
 }
 
-/*--------------------------------------------------------------------*/
-
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) 
 {
     struct SymTableNode *psCurrentNode;
-    struct SymTableNode *psPreviousNode = NULL; 
+    struct SymTableNode *psNodeToRemove; 
     struct SymTableNode *psFirstNode; 
     const void *pvRemovedValue; 
     size_t hash_code; 
@@ -340,11 +318,11 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
     if (psFirstNode != NULL && 
         strcmp(psFirstNode->pcKey, pcKey) == 0) 
         {
-            pvRemovedValue = psFirstNode->pvValue; 
-            free(psFirstNode->pcKey);
-            free(psFirstNode);
+            pvRemovedValue = psFirstNode->pvValue;
             oSymTable->ppsHashTable[hash_code] = 
             psFirstNode->psNextNode;
+            free(psFirstNode->pcKey);
+            free(psFirstNode);
             oSymTable->uLength--; 
             return (void*)pvRemovedValue; 
         }
@@ -354,23 +332,21 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
         psCurrentNode != NULL; 
         psCurrentNode = psCurrentNode->psNextNode)
     {
-        if (strcmp(psCurrentNode->pcKey, pcKey) == 0)
+        if (psCurrentNode->psNextNode != NULL && 
+            strcmp(psCurrentNode->psNextNode->pcKey, pcKey) == 0)
         {
-            pvRemovedValue = psCurrentNode->pvValue; 
-            psPreviousNode->psNextNode = 
-            psCurrentNode->psNextNode; 
-            free(psCurrentNode->pcKey);
-            free(psCurrentNode);
+            psNodeToRemove = psCurrentNode->psNextNode; 
+            pvRemovedValue = psNodeToRemove->pvValue; 
+            psCurrentNode->psNextNode = psNodeToRemove->psNextNode;  
+            free(psNodeToRemove->pcKey);
+            free(psNodeToRemove);
             oSymTable->uLength--; 
             return (void*)pvRemovedValue;
         }
-        psPreviousNode = psCurrentNode; 
     }
 
     return NULL; 
 }
-
-/*--------------------------------------------------------------------*/
 
 void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
