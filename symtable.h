@@ -10,7 +10,6 @@
 consists of a key and a value. A key is a string that uniquely 
 identifies its binding; a value is data that is somehow pertinent 
 to its key. */
-
 typedef struct SymTable *SymTable_T;
 
 /*--------------------------------------------------------------------*/
@@ -43,7 +42,6 @@ int SymTable_put(SymTable_T oSymTable,
 /* if oSymTable contains a binding with key pcKey, then replace the 
 binding's value with pvValue and return the old value. Otherwise return 
 NULL. */
-
 void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue); 
 
