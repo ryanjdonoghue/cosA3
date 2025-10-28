@@ -61,7 +61,7 @@ static size_t SymTable_hash(const char *pcKey, size_t uBucketCount)
 }
 
 /* Expand oSymTable to the next bucket count. Return 1 on success,
-    0 on faliure (not enough memory). */
+0 on faliure (not enough memory). */
 static int SymTable_expand(SymTable_T oSymTable) 
 {
     struct SymTableNode **ppsNewBuckets;
@@ -73,7 +73,7 @@ static int SymTable_expand(SymTable_T oSymTable)
 
     assert(oSymTable != NULL);
 
-    /* Check if we can expand further */
+    /* Check if further expansion is possible. */
     if (oSymTable->uLength >= auBucketCounts[numBucketCounts])
         {
         return 1;
@@ -180,6 +180,8 @@ size_t hash_code;
 assert(oSymTable != NULL); 
 assert(pcKey != NULL);
 
+/* Prompt expansion if # of bindings is as least 
+the amount of current buckets. */
 if(oSymTable->uLength >= oSymTable->uBucketCount)
 {
     SymTable_expand(oSymTable); 
@@ -203,7 +205,7 @@ if (psNewNode == NULL)
 {
     return 0;
 }
-
+/* +1 at the end marks the null terminator character. */
 psNewNode->pcKey = (char*)malloc(strlen(pcKey) + 1); 
 if (psNewNode->pcKey == NULL)
 {
@@ -224,8 +226,8 @@ return 1;
 void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
 {
-    const void *pvValueOld; 
     struct SymTableNode *psCurrentNode;
+    const void *pvValueOld; 
     size_t hash_code; 
     
     assert(oSymTable != NULL); 
@@ -306,6 +308,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
 
     hash_code = SymTable_hash(pcKey, oSymTable->uBucketCount);
     psFirstNode = oSymTable->ppsHashTable[hash_code]; 
+    
     /* Handle if the binding to be removed is first in the 
     list. */
     if (psFirstNode != NULL && 

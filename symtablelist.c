@@ -90,6 +90,7 @@ if (psNewNode == NULL)
 {
     return 0;
 }
+/* +1 at the end marks the null terminator character. */
 psNewNode->pcKey = (char*)malloc(strlen(pcKey) + 1); 
 if (psNewNode->pcKey == NULL)
 {
@@ -110,7 +111,6 @@ void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
 {
     struct SymTableNode *psCurrentNode;
-    
     const void *pvValueOld; 
 
     assert(oSymTable != NULL); 
