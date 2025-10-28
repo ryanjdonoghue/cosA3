@@ -88,7 +88,7 @@ Do you want to validate 'pvExtra' through an assert?
 I have the same disagreement with the two warnings regarding pvValue 
 and the one warning regarding pvExtra. I cannot use assert on pvExtra
 or PvValue because they are allowed to be NULL. Adding asserts causes
-testsymtablehash to crash when it shouldn't. 
+testsymtablehash to abort when it shouldn't. 
 
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablehash.c, and what are your
@@ -116,7 +116,7 @@ Do you want to validate 'pvExtra' through an assert?
 I have the same disagreement with the two warnings regarding pvValue 
 and the one warning regarding pvExtra. I cannot use assert on pvExtra
 or PvValue because they are allowed to be NULL. Adding asserts causes
-testsymtablelist to crash when it shouldn't. 
+testsymtablelist to abort when it shouldn't. 
 
 ------------------------------------------------------------------------
 What are the CPU times reported by testsymtable.c with binding counts
@@ -127,8 +127,8 @@ implementation, (2) your non-expanding hash table implementation, and
 The linked list implementation with:
 -- 50 bindings consumed 0.000000 seconds.
 -- 500 bindings consumed 0.000000 seconds.
--- 5000 bindings consumed 0.120285 seconds.
--- 50000 bindings consumed 20.667857 seconds.
+-- 5000 bindings consumed 0.119350 seconds.
+-- 50000 bindings consumed 19.971392 seconds.
 -- 500000 bindings — More than 5 minutes.
 
 The non-expanding hash table implementation with:
