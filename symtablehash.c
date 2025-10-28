@@ -352,22 +352,13 @@ void SymTable_map(SymTable_T oSymTable,
     const void *pvExtra) 
 {
         struct SymTableNode *psCurrentNode;
-        size_t extraApplied;
         size_t i; 
         
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
-
-        extraApplied = 0; 
     
      for (i = 0; i < oSymTable->uBucketCount; i++)
     {
-        /* There is no need to continue traversing arrays if 
-        all of the bindings have been modified. */
-        if (oSymTable->uLength == extraApplied)
-        {
-            break; 
-        }
         if (oSymTable->ppsHashTable[i] != NULL) 
         {
             for (psCurrentNode = oSymTable->ppsHashTable[i];
@@ -376,9 +367,7 @@ void SymTable_map(SymTable_T oSymTable,
             {
                 (*pfApply) ((void*)psCurrentNode->pcKey, 
                 (void*)psCurrentNode->pvValue, ((void*)pvExtra)); 
-                extraApplied++; 
             }
-        }
-        
+        }  
     }
 }
