@@ -72,7 +72,6 @@ static int SymTable_expand(SymTable_T oSymTable)
 
     assert(oSymTable != NULL);
 
-
     /* Check if we can expand further */
     if (oSymTable->uLength >= auBucketCounts[numBucketCounts])
         {
@@ -95,27 +94,22 @@ static int SymTable_expand(SymTable_T oSymTable)
             psCurrentNode != NULL;
             psCurrentNode = psNextNode)
         {
-            /* Save next pointer before moving node */
             psNextNode = psCurrentNode->psNextNode;
 
-            /* Rehash with new bucket count */
             uNewHash = SymTable_hash(psCurrentNode->pcKey, 
                 uNewBucketCount);
 
-            /* Add to front of new bucket */
             psCurrentNode->psNextNode = ppsNewBuckets[uNewHash];
             ppsNewBuckets[uNewHash] = psCurrentNode;
         }
     }
-    /* Free old bucket array (but not the nodes - we moved them!) */
     free(oSymTable->ppsHashTable);
 
-    /* Update to new buckets */
     oSymTable->ppsHashTable = ppsNewBuckets;
     oSymTable->uBucketCount = uNewBucketCount;
     oSymTable->uBucketIndex++;
 
-    return 1;  /* Success */
+    return 1;
 }
 
 SymTable_T SymTable_new(void) 
@@ -164,8 +158,7 @@ void SymTable_free(SymTable_T oSymTable)
                 free(psCurrentNode);
                 oSymTable->uLength--; 
             }
-        }
-        
+        } 
     }
     free(oSymTable->ppsHashTable); 
     free(oSymTable);
@@ -230,11 +223,10 @@ return 1;
 void *SymTable_replace(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) 
 {
+    const void *pvValueOld; 
     struct SymTableNode *psCurrentNode;
     size_t hash_code; 
     
-    const void *pvValueOld; 
-
     assert(oSymTable != NULL); 
     assert(pcKey != NULL);
 
@@ -313,7 +305,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
 
     hash_code = SymTable_hash(pcKey, oSymTable->uBucketCount);
     psFirstNode = oSymTable->ppsHashTable[hash_code]; 
-
+    /* Handle if the binding to be removed is first in the 
+    list. */
     if (psFirstNode != NULL && 
         strcmp(psFirstNode->pcKey, pcKey) == 0) 
         {
@@ -343,7 +336,6 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
             return (void*)pvRemovedValue;
         }
     }
-
     return NULL; 
 }
 

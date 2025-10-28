@@ -173,42 +173,47 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey)
 
 void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) 
 {
-    struct SymTableNode *psCurrentNode;
-    struct SymTableNode *psPreviousNode = NULL; 
+     struct SymTableNode *psCurrentNode;
+    struct SymTableNode *psNodeToRemove;
+    struct SymTableNode *psFirst;
     const void *pvRemovedValue; 
 
     assert(oSymTable != NULL);
     assert(pcKey != NULL); 
 
-    for (psCurrentNode = oSymTable->psFirstNode;
+    /* Used a lot in first case, so I simplified the variable 
+    name. */
+    psFirst = oSymTable->psFirstNode;
+    
+    /* Handle if the binding to be removed is first in the 
+    list. */
+    if (psFirst != NULL && 
+        strcmp(psFirst->pcKey, pcKey) == 0) 
+        {
+            pvRemovedValue = psFirst->pvValue;
+            psFirst = psFirst->psNextNode;
+            free(psFirst->pcKey);
+            free(psFirst);
+            oSymTable->uLength--; 
+            return (void*)pvRemovedValue; 
+        }
+
+    /* Handle all other cases */
+    for (psCurrentNode = psFirst;
         psCurrentNode != NULL; 
         psCurrentNode = psCurrentNode->psNextNode)
     {
-        if (strcmp(psCurrentNode->pcKey, pcKey) == 0) 
+        if (psCurrentNode->psNextNode != NULL && 
+            strcmp(psCurrentNode->psNextNode->pcKey, pcKey) == 0)
         {
-            if (psCurrentNode == oSymTable->psFirstNode) 
-            {
-                pvRemovedValue = oSymTable->psFirstNode->pvValue; 
-                free(psCurrentNode->pcKey);
-                free(oSymTable->psFirstNode);
-                oSymTable->psFirstNode = psCurrentNode->psNextNode;
-                oSymTable->uLength--; 
-                return (void*)pvRemovedValue; 
-            }
-            /* Needed to avoid possibly null pointer dereference
-             warning. However, psPreviousNode would already be 
-             established in the case where the else-if takes place. */
-            else if (psPreviousNode != NULL)
-            {
-                pvRemovedValue = psCurrentNode->pvValue; 
-                psPreviousNode->psNextNode = psCurrentNode->psNextNode; 
-                free(psCurrentNode->pcKey);
-                free(psCurrentNode);
-                oSymTable->uLength--; 
-                return (void*)pvRemovedValue;
-            }
+            psNodeToRemove = psCurrentNode->psNextNode; 
+            pvRemovedValue = psNodeToRemove->pvValue; 
+            psCurrentNode->psNextNode = psNodeToRemove->psNextNode;  
+            free(psNodeToRemove->pcKey);
+            free(psNodeToRemove);
+            oSymTable->uLength--; 
+            return (void*)pvRemovedValue;
         }
-        psPreviousNode = psCurrentNode; 
     }
     return NULL; 
 }
