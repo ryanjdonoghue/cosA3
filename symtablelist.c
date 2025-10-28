@@ -217,8 +217,8 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey)
                 return (void*)pvRemovedValue; 
             }
             /* Needed to avoid possibly null pointer dereference
-             warning. psPreviousNode would already be established
-             in the case where the else-if takes place. */
+             warning. However, psPreviousNode would already be 
+             established in the case where the else-if takes place. */
             else if (psPreviousNode != NULL)
             {
                 pvRemovedValue = psCurrentNode->pvValue; 

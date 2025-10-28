@@ -13,7 +13,7 @@ static const size_t auBucketCounts[] = {
     509, 1021, 2039, 4093, 8191, 16381, 32749, 65521
 }; 
 
-#define NUM_BUCKET_COUNTS 8 
+static const size_t numBucketCounts = sizeof(auBucketCounts)/sizeof(auBucketCounts[0]);
 
 /* Each binding is stored in a SymTableHashNode. SymTableNodes are 
 linked to form a list. */
@@ -80,7 +80,7 @@ static int SymTable_expand(SymTable_T oSymTable)
 
 
     /* Check if we can expand further */
-    if (oSymTable->uLength >= auBucketCounts[NUM_BUCKET_COUNTS])
+    if (oSymTable->uLength >= auBucketCounts[numBucketCounts])
         {
         return 1;
         }
